@@ -1,0 +1,48 @@
+/* src/App.css */
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h1 {
+  color: #2c3e50;
+}
+
+p {
+  color: #555;
+  font-size: 15px;
+}
+
+button {
+  margin-top: 25px;
+  padding: 14px 32px;
+  font-size: 18px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: #2980b9;
+}
+
+button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 40px;
+  padding: 25px;
+  background: #ecf0f1;
+  border-radius: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #27ae60;
+}
