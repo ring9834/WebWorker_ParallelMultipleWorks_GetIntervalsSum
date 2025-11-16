@@ -1,18 +1,41 @@
-# React + Vite
+# Web Worker for parallel jobs to improve efficiency of calculation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This code example is to domonstrate how to use Web Worker to apply parallel caculations on large quantity of data (in this case, data are arrays with like 100K or more elements). We use Web worker to divide data into specific share of chunks which can be dealt with in parallel like multi-threads.
 
-Currently, two official plugins are available:
+## Main features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+:two_hearts:Web Workers.
 
-## React Compiler
+:gift_heart:React + vite.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Worker.js code
+```sh
+function mergeIntervals(intervals) {
+  if (intervals.length === 0) return [];
 
-Note: This will impact Vite dev & build performances.
+  // Sort by start
+  intervals.sort((a, b) => a[0] - b[0]);
 
-## Expanding the ESLint configuration
+  const merged = [intervals[0]];
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+  for (let i = 1; i < intervals.length; i++) {
+    const current = intervals[i];
+    const last = merged[merged.length - 1];
+
+    if (current[0] <= last[1]) {
+      last[1] = Math.max(last[1], current[1]);
+    } else {
+      merged.push(current);
+    }
+  }
+
+  return merged;
+}
+
+self.onmessage = function (e) {
+  const { chunk, chunkIndex } = e.data;
+  const merged = mergeIntervals(chunk);
+  const partialSum = merged.reduce((sum, [low, high]) => sum + (high - low), 0);
+  self.postMessage({ chunkIndex, partialSum, merged });
+};
+```
