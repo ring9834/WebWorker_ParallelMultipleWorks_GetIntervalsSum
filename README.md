@@ -4,7 +4,7 @@ This code example is to domonstrate how to use Web Worker to apply parallel cacu
 
 ## Main features
 
-:two_hearts:Web Workers.
+:two_hearts:Web Workers, a JavaScript feature in browsers that let us run scripts in background threads, separate from the main (UI) thread, suitd for heavy computation, parallel tasks.
 
 :gift_heart:React + vite.
 
