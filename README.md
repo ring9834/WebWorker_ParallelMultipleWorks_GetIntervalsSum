@@ -1,6 +1,6 @@
-# Web Worker for parallel jobs to improve efficiency of calculation
+# Web Worker for parallel jobs at Front End to improve efficiency of calculation
 
-This code example is to domonstrate how to use Web Worker to apply parallel caculations on large quantity of data (in this case, data are arrays with like 100K or more elements). We use Web worker to divide data into specific share of chunks which can be dealt with in parallel like multi-threads.
+This code example is to domonstrate how to use Web Worker to apply parallel caculations on large quantity of data (in this case, data are arrays with like 100K or more elements) at the front end of our app. We use Web worker to divide data into specific share of chunks which can be dealt with in parallel like multi-threads.
 
 ## Main features
 
